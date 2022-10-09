@@ -32,33 +32,45 @@ import java.text.DateFormat;
 import java.util.*;
 
 
-class SingletonTimer extends AppCompatActivity  {
-    private static SingletonTimer instance;
-    private EditText editText;
-    private SingletonTimer() {
-        this.editText = findViewById(R.id.editTextTime);
-        new CountDownTimer(30000, 1000) {
+//class SingletonTimer extends AppCompatActivity  {
+//    private static SingletonTimer instance;
+//    private EditText editText;
+//    private SingletonTimer() {
+//        this.editText = findViewById(R.id.editTextTime);
+//        new CountDownTimer(30000, 1000) {
+//
+//            public void onTick(long millisUntilFinished) {
+//                editText.setText("seconds remaining: " + millisUntilFinished / 1000);
+//            }
+//
+//            public void onFinish() {
+//                editText.setText("done!");
+//            }
+//        }.start();
+//    }
+//    public static SingletonTimer getInstance() {
+//        if (instance == null) {
+//            instance = new SingletonTimer();
+//        }
+//        return instance;
+//    }
+//
+//    public void cancel() {
+//        this.instance = null;
+//    }
+//}
 
-            public void onTick(long millisUntilFinished) {
-                editText.setText("seconds remaining: " + millisUntilFinished / 1000);
-            }
-
-            public void onFinish() {
-                editText.setText("done!");
-            }
-        }.start();
-    }
-    public static SingletonTimer getInstance() {
-        if (instance == null) {
-            instance = new SingletonTimer();
-        }
-        return instance;
+class exampleEdit extends AppCompatActivity{
+    private EditText editText = findViewById(R.id.editTextTime);
+    public void changeText() {
+        editText.setText("this worked");
     }
 }
 public class MainActivity extends AppCompatActivity {
 
 //    private static final String CLIENT_ID = System.getenv("SPOTIFY_CLIENT_ID");
     private boolean timerButtonClicked= false;
+    CountDownTimer countDownTimerInstance;
 
 
     private static final String REDIRECT_URI = "hokfocus://callback";
@@ -137,14 +149,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) throws ParseException {
-        if(this.timerButtonClicked) {
+        EditText editText = findViewById(R.id.editTextTime);
+        if(!this.timerButtonClicked) {
             this.timerButtonClicked = true;
-            onStop();
+            this.countDownTimerInstance = new CountDownTimer(30000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    editText.setText("seconds remaining: " + millisUntilFinished / 1000);
+                }
+
+                public void onFinish() {
+                    editText.setText("done!");
+                }
+            }.start();
+            onStart();
 
         }
         else {
-            onStart();
-            SingletonTimer.getInstance();
+            this.timerButtonClicked = false;
+            onStop();
+            this.countDownTimerInstance.cancel();
         }
     }
 
