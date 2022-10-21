@@ -32,34 +32,6 @@ import java.text.DateFormat;
 import java.util.*;
 
 
-//class SingletonTimer extends AppCompatActivity  {
-//    private static SingletonTimer instance;
-//    private EditText editText;
-//    private SingletonTimer() {
-//        this.editText = findViewById(R.id.editTextTime);
-//        new CountDownTimer(30000, 1000) {
-//
-//            public void onTick(long millisUntilFinished) {
-//                editText.setText("seconds remaining: " + millisUntilFinished / 1000);
-//            }
-//
-//            public void onFinish() {
-//                editText.setText("done!");
-//            }
-//        }.start();
-//    }
-//    public static SingletonTimer getInstance() {
-//        if (instance == null) {
-//            instance = new SingletonTimer();
-//        }
-//        return instance;
-//    }
-//
-//    public void cancel() {
-//        this.instance = null;
-//    }
-//}
-
 class exampleEdit extends AppCompatActivity{
     private EditText editText = findViewById(R.id.editTextTime);
     public void changeText() {
@@ -70,16 +42,23 @@ public class MainActivity extends AppCompatActivity {
 
 //    private static final String CLIENT_ID = System.getenv("SPOTIFY_CLIENT_ID");
     private boolean timerButtonClicked= false;
+
+
     CountDownTimer countDownTimerInstance;
 
 
     private static final String REDIRECT_URI = "hokfocus://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
 
+    EditText timeEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Editable	getEditableText()
+        //Return the text that TextView is displaying as an Editable object.
+        this.timeEditText = findViewById(R.id.editTextTime);
 
     }
 
@@ -149,17 +128,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) throws ParseException {
-        EditText editText = findViewById(R.id.editTextTime);
         if(!this.timerButtonClicked) {
+            System.out.println("timer is starting 0o0o0o0o0o0o");
             this.timerButtonClicked = true;
             this.countDownTimerInstance = new CountDownTimer(30000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
-                    editText.setText("seconds remaining: " + millisUntilFinished / 1000);
+                    timeEditText.setText("seconds remaining: " + millisUntilFinished / 1000);
                 }
 
                 public void onFinish() {
-                    editText.setText("done!");
+                    timeEditText.setText("done!");
                 }
             }.start();
             onStart();
@@ -167,8 +146,11 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             this.timerButtonClicked = false;
+            System.out.println("we're stopping the timer");
+            timeEditText.setText("00:00:00");
             onStop();
             this.countDownTimerInstance.cancel();
+            this.countDownTimerInstance = null;
         }
     }
 
@@ -185,6 +167,10 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText("done!");
             }
         }.start();
+
+    }
+    private void enterCountdown(EditText editText) {
+        //editTextTime
 
     }
 
