@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        // TODO Get input from the user as to Hours:Minutes:Seconds
+        // TODO refractor code so that api call to spotify does not start automatically
+        // TODO add functionality to make api calls that allow user to choose music or playlist
         super.onStart();
         // We will start writing our code here.
         // Set the connection parameters
