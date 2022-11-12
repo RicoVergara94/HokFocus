@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 
@@ -131,10 +132,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) throws ParseException {
+//        long hours =
+        Editable inputTime = timeEditText.getText();
+        System.out.println(inputTime);
         if(!this.timerButtonClicked) {
             System.out.println("timer is starting 0o0o0o0o0o0o");
             this.timerButtonClicked = true;
-            this.countDownTimerInstance = new CountDownTimer(30000, 1000) {
+            this.countDownTimerInstance = new CountDownTimer(30000, 1000) { // here is where we'll input the converted times into milliseconds
 
                 public void onTick(long millisUntilFinished) {
                     timeEditText.setText("seconds remaining: " + millisUntilFinished / 1000);
@@ -157,21 +161,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void beginCountdown() {
-
-        EditText editText = findViewById(R.id.editTextTime);
-        new CountDownTimer(30000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                editText.setText("seconds remaining: " + millisUntilFinished / 1000);
-            }
-
-            public void onFinish() {
-                editText.setText("done!");
-            }
-        }.start();
-
-    }
+//    private void beginCountdown() {
+//
+//        EditText editText = findViewById(R.id.editTextTime);
+//        new CountDownTimer(30000, 1000) {
+//
+//            public void onTick(long millisUntilFinished) {
+//                editText.setText("seconds remaining: " + millisUntilFinished / 1000);
+//            }
+//
+//            public void onFinish() {
+//                editText.setText("done!");
+//            }
+//        }.start();
+//
+//    }
     private void enterCountdown(EditText editText) {
         //editTextTime
 
